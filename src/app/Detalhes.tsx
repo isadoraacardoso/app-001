@@ -1,9 +1,11 @@
-// src/app/Detalhes.tsx
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
+import { ItemContext } from "./context/ItemContext";
 
-export default function Detalhes({ route }: any) {
-  const { item } = route.params;
+export default function Detalhes() {
+  const { item } = useContext(ItemContext);
+
+  if (!item) return <Text>Item não encontrado!</Text>;
 
   return (
     <View style={styles.container}>

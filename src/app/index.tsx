@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -11,8 +11,11 @@ import { IoSearch } from "react-icons/io5";
 import { IoCutSharp } from "react-icons/io5";
 import { GiCarDoor, GiHamburgerMenu } from "react-icons/gi";
 import { Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { ItemContext } from "./context/ItemContext";
 
 export default function Index({ navigation }: any) {
+  const { setItem } = useContext(ItemContext);
   const [search, setSearch] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -112,7 +115,10 @@ export default function Index({ navigation }: any) {
             </View>
             <Pressable
               style={styles.cardbtn}
-              onPress={() => navigation.navigate("Detalhes", { item })}
+              onPress={() => {
+                setItem(item);
+                navigation.navigate("Detalhes");
+              }}
             >
               <Text style={styles.cardbtnText}>Ver mais</Text>
             </Pressable>
@@ -211,20 +217,15 @@ const styles = StyleSheet.create({
     color: "#1f1f1f",
   },
   //cards
-  card: {
-    gap: 10,
-    height: 500,
-    width: "100%",
-    flexWrap: "wrap",
-    padding: 20,
-    justifyContent: "space-around",
-    alignItems: "center",
-    flexDirection: "row",
-  },
   cardItem: {
     width: "45%",
     height: 260,
     alignItems: "center",
+    flexWrap: "wrap",
+    padding: 20,
+    justifyContent: "space-around",
+    flexDirection: "row",
+    margin: 10,
   },
   cardItemImage: {
     width: 160,
@@ -238,7 +239,7 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   cardItemDescription: {
-    marginTop: 45,
+    marginTop: 5,
   },
   cardItemTitulo: {
     fontSize: 16,

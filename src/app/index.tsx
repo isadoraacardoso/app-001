@@ -12,12 +12,12 @@ import { IoCutSharp } from "react-icons/io5";
 import { GiCarDoor, GiHamburgerMenu } from "react-icons/gi";
 import { Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { ItemContext } from "./context/ItemContext";
 
 export default function Index({ navigation }: any) {
-  const { setItem } = useContext(ItemContext);
   const [search, setSearch] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<any>(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const data = [
     {
@@ -101,6 +101,18 @@ export default function Index({ navigation }: any) {
       </View>
 
       {/* LISTA DE CARDS */}
+      {modalVisible && (
+        <View style={styles.modal}>
+          <Pressable
+            style={styles.modalClose}
+            onPress={() => setModalVisible(false)}
+          >
+            <Text style={styles.modalCloseText}>X</Text>
+          </Pressable>
+          <Image source={selectedImage} style={styles.modalImage} />
+        </View>
+      )}
+
       <FlatList
         data={filteredData}
         keyExtractor={(item) => item.id}
@@ -116,8 +128,8 @@ export default function Index({ navigation }: any) {
             <Pressable
               style={styles.cardbtn}
               onPress={() => {
-                setItem(item);
-                navigation.navigate("Detalhes");
+                setSelectedImage(item.img);
+                setModalVisible(true);
               }}
             >
               <Text style={styles.cardbtnText}>Ver mais</Text>
@@ -283,5 +295,35 @@ const styles = StyleSheet.create({
     color: "#1f1f1f",
     backgroundColor: "white",
     textAlign: "center",
+  },
+  modal: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.8)",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 100,
+  },
+  modalImage: {
+    width: "80%",
+    height: "50%",
+    resizeMode: "contain",
+    borderRadius: 15,
+  },
+  modalClose: {
+    position: "absolute",
+    top: 40,
+    right: 20,
+    padding: 10,
+    backgroundColor: "white",
+    borderRadius: 20,
+  },
+  modalCloseText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "black",
   },
 });

@@ -1,24 +1,77 @@
-import { View, Text, TextInput, Pressable, StyleSheet } from "react-native";
+import { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  StyleSheet,
+  FlatList,
+} from "react-native";
 import { IoSearch } from "react-icons/io5";
 import { IoCutSharp } from "react-icons/io5";
 import { GiCarDoor, GiHamburgerMenu } from "react-icons/gi";
 import { Image } from "react-native";
 
-export default function Home() {
+export default function Index({ navigation }: any) {
+  const [search, setSearch] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const data = [
+    {
+      id: "1",
+      titulo: "Sobrancelha",
+      descricao: "Design de sobrancelhas naturais",
+      img: require("../../assets/images/cards/visao.png"),
+    },
+    {
+      id: "2",
+      titulo: "Maquiagem",
+      descricao: "Make completa para festas",
+      img: require("../../assets/images/cards/visao.png"),
+    },
+    {
+      id: "3",
+      titulo: "Corte",
+      descricao: "Corte de cabelo profissional",
+      img: require("../../assets/images/cards/visao.png"),
+    },
+  ];
+
+  const filteredData = data.filter((item) =>
+    item.titulo.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <View style={styles.container}>
-      {/*HEADER*/}
+      {/* HEADER */}
       <View style={styles.header}>
         <View style={styles.logo}>
           <IoCutSharp style={styles.cutLogo} />
           <Text style={styles.cutText}>Home Page</Text>
-          <Text style={styles.cutText1}>Home Page</Text>
         </View>
 
-        <Pressable style={styles.btnHeader}>
+        <Pressable
+          style={styles.btnHeader}
+          onPress={() => setMenuOpen(!menuOpen)}
+        >
           <GiHamburgerMenu size={30} color="white" />
         </Pressable>
       </View>
+
+      {/* MENU LATERAL */}
+      {menuOpen && (
+        <View style={styles.menu}>
+          <Pressable onPress={() => setSearch("Sobrancelha")}>
+            <Text style={styles.menuText}>Sobrancelhas</Text>
+          </Pressable>
+          <Pressable onPress={() => setSearch("Maquiagem")}>
+            <Text style={styles.menuText}>Maquiagens</Text>
+          </Pressable>
+          <Pressable onPress={() => setSearch("Corte")}>
+            <Text style={styles.menuText}>Cortes</Text>
+          </Pressable>
+        </View>
+      )}
 
       {/*SEARCH*/}
       <View style={styles.searchInputContainer}>
@@ -26,6 +79,8 @@ export default function Home() {
           placeholder="Faça sua busca..."
           placeholderTextColor="#565656ff"
           style={styles.searchInput}
+          value={search}
+          onChangeText={setSearch}
         />
         <Pressable style={styles.btnSearch}>
           <IoSearch size={30} color="white" />
@@ -42,62 +97,28 @@ export default function Home() {
         </View>
       </View>
 
-      {/*CARDS*/}
-      <View style={styles.card}>
-        <View style={styles.cardItem}>
-          <View style={styles.cardItemImage}>
-            <Image
-              source={require("../../assets/images/cards/visao.png")}
-              style={styles.image}
-            />
+      {/* LISTA DE CARDS */}
+      <FlatList
+        data={filteredData}
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        columnWrapperStyle={{ justifyContent: "space-around" }}
+        renderItem={({ item }) => (
+          <View style={styles.cardItem}>
+            <Image source={item.img} style={styles.image} />
+            <View style={styles.cardItemDescription}>
+              <Text style={styles.cardItemTitulo}>{item.titulo}</Text>
+              <Text style={styles.cardItemParagrafo}>{item.descricao}</Text>
+            </View>
+            <Pressable
+              style={styles.cardbtn}
+              onPress={() => navigation.navigate("Detalhes", { item })}
+            >
+              <Text style={styles.cardbtnText}>Ver mais</Text>
+            </Pressable>
           </View>
-          <View style={styles.cardItemDescription}>
-            <Text style={styles.cardItemTitulo}>Sobrancelha</Text>
-            <Text style={styles.cardItemParagrafo}>
-              Design de sobrancelhas naturais
-            </Text>
-          </View>
-          <Pressable style={styles.cardbtn}>
-            <Text style={styles.cardbtnText}>Ver mais</Text>
-          </Pressable>
-        </View>
-
-        <View style={styles.cardItem}>
-          <View style={styles.cardItemImage}>
-            <Image
-              source={require("../../assets/images/cards/visao.png")}
-              style={styles.image}
-            />
-          </View>
-          <View style={styles.cardItemDescription}>
-            <Text style={styles.cardItemTitulo}>Sobrancelha</Text>
-            <Text style={styles.cardItemParagrafo}>
-              Design de sobrancelhas naturais
-            </Text>
-          </View>
-          <Pressable style={styles.cardbtn}>
-            <Text style={styles.cardbtnText}>Ver mais</Text>
-          </Pressable>
-        </View>
-
-        <View style={styles.cardItem}>
-          <View style={styles.cardItemImage}>
-            <Image
-              source={require("../../assets/images/cards/visao.png")}
-              style={styles.image}
-            />
-          </View>
-          <View style={styles.cardItemDescription}>
-            <Text style={styles.cardItemTitulo}>Sobrancelha</Text>
-            <Text style={styles.cardItemParagrafo}>
-              Design de sobrancelhas naturais
-            </Text>
-          </View>
-          <Pressable style={styles.cardbtn}>
-            <Text style={styles.cardbtnText}>Ver mais</Text>
-          </Pressable>
-        </View>
-      </View>
+        )}
+      />
     </View>
   );
 }
@@ -193,7 +214,6 @@ const styles = StyleSheet.create({
   card: {
     gap: 10,
     height: 500,
-    overflowY: "auto",
     width: "100%",
     flexWrap: "wrap",
     padding: 20,
@@ -241,5 +261,26 @@ const styles = StyleSheet.create({
   cardbtnText: {
     color: "black",
     fontWeight: "bold",
+  },
+  // menu dropdown
+  menu: {
+    width: "100%",
+    backgroundColor: "#efefef",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    gap: 10, // espaçamento entre as opções
+  },
+
+  menuText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    color: "#1f1f1f",
+    backgroundColor: "white",
+    textAlign: "center",
   },
 });

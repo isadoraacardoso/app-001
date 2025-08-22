@@ -22,21 +22,92 @@ export default function Index({ navigation }: any) {
   const data = [
     {
       id: "1",
-      titulo: "Sobrancelha",
-      descricao: "Design de sobrancelhas naturais",
-      img: require("../../assets/images/cards/visao.png"),
+      titulo: "Maquiagem",
+      descricao: "Maquiagem em tons quentes.",
+      img: require("../../assets/images/cards/1.png"),
     },
     {
-      id: "2",
-      titulo: "Maquiagem",
-      descricao: "Make completa para festas",
-      img: require("../../assets/images/cards/visao.png"),
+      id: "11",
+      titulo: "Sobrancelhas",
+      descricao: "Design personalizado.",
+      img: require("../../assets/images/cards/11.png"),
     },
+    {
+      id: "5",
+      titulo: "Maquiagem",
+      descricao: "Maquiagem marcante.",
+      img: require("../../assets/images/cards/5.png"),
+    },
+
     {
       id: "3",
-      titulo: "Corte",
-      descricao: "Corte de cabelo profissional",
-      img: require("../../assets/images/cards/visao.png"),
+      titulo: "Maquiagem",
+      descricao: "Maquiagem social.",
+      img: require("../../assets/images/cards/3.png"),
+    },
+    {
+      id: "4",
+      titulo: "Maquiagem",
+      descricao: "Maquiagem glow.",
+      img: require("../../assets/images/cards/4.png"),
+    },
+    {
+      id: "10",
+      titulo: "Sobrancelhas",
+      descricao: "Sobrancelhas em destaque",
+      img: require("../../assets/images/cards/10.png"),
+    },
+
+    {
+      id: "14",
+      titulo: "Sobrancelhas",
+      descricao: "Design de sobrancelhas.",
+      img: require("../../assets/images/cards/14.png"),
+    },
+    {
+      id: "6",
+      titulo: "Maquiagem",
+      descricao: "Maquiagem profissional",
+      img: require("../../assets/images/cards/6.png"),
+    },
+    {
+      id: "7",
+      titulo: "Maquiagem",
+      descricao: "Maquiagem personalizada",
+      img: require("../../assets/images/cards/7.png"),
+    },
+
+    {
+      id: "2",
+      titulo: "Sobrancelhas",
+      descricao: "Design de sobrancelhas simétrico.",
+      img: require("../../assets/images/cards/2.png"),
+    },
+
+    {
+      id: "8",
+      titulo: "Maquiagem",
+      descricao: "Maquiagem encantadora.",
+      img: require("../../assets/images/cards/8.png"),
+    },
+    {
+      id: "9",
+      titulo: "Maquiagem",
+      descricao: "Maquiagem com técnica e propósito",
+      img: require("../../assets/images/cards/9.png"),
+    },
+
+    {
+      id: "12",
+      titulo: "Maquiagem",
+      descricao: "Maquiagem delicada",
+      img: require("../../assets/images/cards/12.png"),
+    },
+    {
+      id: "13",
+      titulo: "Sobrancelhas",
+      descricao: "Design de sobrancelhas.",
+      img: require("../../assets/images/cards/13.png"),
     },
   ];
 
@@ -48,30 +119,39 @@ export default function Index({ navigation }: any) {
     <View style={styles.container}>
       {/* HEADER */}
       <View style={styles.header}>
-        <View style={styles.logo}>
-          <IoCutSharp style={styles.cutLogo} />
-          <Text style={styles.cutText}>Home Page</Text>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Image
+            source={require("../../assets/images/outs/Captura de tela 2025-08-22 004142.png")}
+            style={{ width: 220, height: 30 }}
+            resizeMode="cover"
+          />
         </View>
 
         <Pressable
           style={styles.btnHeader}
           onPress={() => setMenuOpen(!menuOpen)}
         >
-          <GiHamburgerMenu size={30} color="white" />
+          <GiHamburgerMenu size={30} color="#be964a" />
         </Pressable>
       </View>
 
       {/* MENU LATERAL */}
       {menuOpen && (
         <View style={styles.menu}>
+          <Pressable onPress={() => setSearch("")}>
+            <Text style={styles.menuText}>Todos</Text>
+          </Pressable>
+
           <Pressable onPress={() => setSearch("Sobrancelha")}>
             <Text style={styles.menuText}>Sobrancelhas</Text>
           </Pressable>
           <Pressable onPress={() => setSearch("Maquiagem")}>
             <Text style={styles.menuText}>Maquiagens</Text>
-          </Pressable>
-          <Pressable onPress={() => setSearch("Corte")}>
-            <Text style={styles.menuText}>Cortes</Text>
           </Pressable>
         </View>
       )}
@@ -92,12 +172,22 @@ export default function Index({ navigation }: any) {
 
       {/*CATEGORIAS*/}
       <View style={styles.speciality}>
-        <View style={styles.specialityText}>
+        <Pressable onPress={() => setSearch("")} style={styles.specialityText}>
+          <Text style={styles.specialityText1}>Todos</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => setSearch("Sobrancelha")}
+          style={styles.specialityText}
+        >
           <Text style={styles.specialityText1}>Sobrancelhas</Text>
-        </View>
-        <View style={styles.specialityText}>
+        </Pressable>
+
+        <Pressable
+          onPress={() => setSearch("Maquiagem")}
+          style={styles.specialityText}
+        >
           <Text style={styles.specialityText1}>Maquiagens</Text>
-        </View>
+        </Pressable>
       </View>
 
       {/* LISTA DE CARDS */}
@@ -156,7 +246,7 @@ const styles = StyleSheet.create({
     padding: 20,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#efefefff",
+    backgroundColor: "#fbfbeb",
   },
   logo: {
     flexDirection: "row",
@@ -165,22 +255,18 @@ const styles = StyleSheet.create({
   cutLogo: {
     height: 30,
     width: 30,
-    color: "#5511dd",
+    color: "#be964a",
   },
   cutText: {
     fontSize: 22,
     fontWeight: "bold",
-    color: "#5511dd",
+    color: "#be964a",
   },
-  cutText1: {
-    fontSize: 22,
-    fontWeight: "bold",
-    color: "#1f1f1f1f",
-  },
+
   btnHeader: {
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "#efefefff",
+    backgroundColor: "#fbfbeb",
   },
   //search
   searchInputContainer: {
@@ -197,13 +283,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     letterSpacing: 2,
     borderWidth: 1,
-    borderColor: "#5511dd",
+    borderColor: "#be964a",
   },
   btnSearch: {
     padding: 6,
     marginLeft: 5,
     borderRadius: 7,
-    backgroundColor: "#5511dd",
+    backgroundColor: "#be964a",
   },
   //categoria
   speciality: {
@@ -218,15 +304,15 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
     alignItems: "center",
-    borderRadius: 10,
-    backgroundColor: "#efefefff",
+    borderRadius: 30,
+    backgroundColor: "#be954ae7",
   },
   specialityText1: {
     padding: 5,
     fontSize: 12,
     fontWeight: "bold",
     letterSpacing: 1,
-    color: "#1f1f1f",
+    color: "white",
   },
   //cards
   cardItem: {
@@ -252,10 +338,11 @@ const styles = StyleSheet.create({
   },
   cardItemDescription: {
     marginTop: 5,
+    height: "auto",
   },
   cardItemTitulo: {
     fontSize: 16,
-    color: "black",
+    color: "#000000c5",
     fontWeight: "bold",
   },
   cardItemParagrafo: {
@@ -268,17 +355,17 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 8,
     marginTop: 10,
-    backgroundColor: "#efefefff",
+    backgroundColor: "#be954ae7",
     alignItems: "center",
   },
   cardbtnText: {
-    color: "black",
+    color: "white",
     fontWeight: "bold",
   },
   // menu dropdown
   menu: {
     width: "100%",
-    backgroundColor: "#efefef",
+    backgroundColor: "#fbfbeb",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
@@ -292,8 +379,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 10,
     borderRadius: 8,
-    color: "#1f1f1f",
-    backgroundColor: "white",
+    color: "white",
+    backgroundColor: "#be954ae7",
     textAlign: "center",
   },
   modal: {
@@ -318,7 +405,7 @@ const styles = StyleSheet.create({
     top: 40,
     right: 20,
     padding: 10,
-    backgroundColor: "white",
+    backgroundColor: "#be964a",
     borderRadius: 20,
   },
   modalCloseText: {

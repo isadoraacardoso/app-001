@@ -2,13 +2,16 @@
   "name": "app-001",
   "main": "expo-router/entry",
   "version": "1.0.0",
+  "homepage": "https://github.com/isadoraacardoso/revitalizeclinica",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build": "expo export:web",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d web-build"
   },
   "jest": {
     "preset": "jest-expo"
@@ -39,6 +42,7 @@
     "@babel/core": "^7.28.3",
     "@expo/webpack-config": "^19.0.1",
     "@types/react": "~19.1.10",
+    "gh-pages": "^6.3.0",
     "jest": "^30.0.5",
     "jest-expo": "~53.0.9",
     "react-test-renderer": "19.1.1",

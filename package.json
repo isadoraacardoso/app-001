@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.28.3",
+    "@expo/webpack-config": "^19.0.1",
     "@types/react": "~19.1.10",
     "jest": "^30.0.5",
     "jest-expo": "~53.0.9",

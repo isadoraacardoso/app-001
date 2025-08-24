@@ -222,7 +222,7 @@ export default function Index({ navigation }: any) {
                 setModalVisible(true);
               }}
             >
-              <Text style={styles.cardbtnText}>Ver mais</Text>
+              <Text style={styles.cardbtnText}>Ver</Text>
             </Pressable>
           </View>
         )}

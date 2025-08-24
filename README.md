@@ -1,6 +1,6 @@
 # Revitalize Clínica
 
-> Aplicativo móvel para uma clínica de estética, desenvolvido com **React Native** e possivelmente **Expo**, com funcionalidades de busca, filtro por categorias, visualização de imagens e navegação intuitiva.
+> Aplicativo móvel para uma clínica de estética, desenvolvido com **React Native** e **Expo**, com funcionalidades de busca, filtro por categorias, visualização de imagens e navegação intuitiva.
 
 ##  Visual do App
 <img width="332" height="579" alt="Captura de tela 2025-08-24 122417" src="https://github.com/user-attachments/assets/269d1158-ea33-4cf0-aeec-72d0157b72d4" />
